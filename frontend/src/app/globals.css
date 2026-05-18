@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@theme {
+  --color-background: #04060c;
+  --color-foreground: #f8fafc;
+  --color-card: #080c18;
+  --color-card-foreground: #f8fafc;
+  --color-popover: #080c18;
+  --color-popover-foreground: #f8fafc;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1e293b;
+  --color-secondary-foreground: #f8fafc;
+  --color-muted: #0f172a;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #0f172a;
+  --color-accent-foreground: #f8fafc;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  --color-ring: #3b82f6;
+  --color-stellar-blue: #3b82f6;
+  --color-verified-green: #10b981;
+  --color-alert-red: #ef4444;
+  --color-amber-gold: #f59e0b;
+
+  --font-sans: 'Outfit', 'Instrument Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── Premium Luxury Custom Utility Styles ────────────────────────────────── */
+.glassmorphism {
+  background: rgba(8, 12, 24, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glassmorphism-card {
+  background: linear-gradient(135deg, rgba(8, 12, 24, 0.8) 0%, rgba(4, 6, 12, 0.9) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glassmorphism-card:hover {
+  border-color: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ─── Dynamic Glow Accents ───────────────────────────────────────────────── */
+.glow-stellar {
+  box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.25);
+}
+
+.glow-verified {
+  box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
+}
+
+.glow-destructive {
+  box-shadow: 0 0 50px -10px rgba(239, 68, 68, 0.25);
+}
+
+.glow-text-stellar {
+  text-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.glow-text-verified {
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+/* ─── Webkit Custom Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04060c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* ─── Code Snippets custom scrollbar ──────────────────────────────────────── */
+pre::-webkit-scrollbar {
+  height: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
