@@ -24,6 +24,12 @@ Cargo.lock
 *.wasm
 contract/**/*.wasm
 
+# Test Snapshots and Mock Cache Outputs
+test_snapshots/
+**/test_snapshots/
+test_snapshot/
+**/test_snapshot/
+
 # Database Files and Cache
 *.db
 *.sqlite
