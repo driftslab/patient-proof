@@ -1,15 +1,8 @@
-#![cfg(test)]
 use super::*;
-use soroban_sdk::{
-    testutils::Address as _,
-    symbol_short,
-    Address,
-    Env,
-    Bytes,
-    BytesN,
-};
+use soroban_sdk::{symbol_short, testutils::Address as _, Address, Bytes, BytesN, Env};
 
 #[test]
+#[allow(deprecated)]
 fn test_write_and_amend_record() {
     let env = Env::default();
     env.mock_all_auths();
@@ -38,14 +31,28 @@ fn test_write_and_amend_record() {
     let record_type = symbol_short!("DIAG");
     let cid = Bytes::from_slice(&env, b"ipfs://QmSomeHash");
 
-    let fail_res = rr_client.try_write_record(&provider, &patient, &record_hash, &record_type, &cid, &12345);
+    let fail_res = rr_client.try_write_record(
+        &provider,
+        &patient,
+        &record_hash,
+        &record_type,
+        &cid,
+        &12345,
+    );
     assert!(fail_res.is_err());
 
     // 6. Grant access on AccessControl
     ac_client.grant_access(&patient, &provider, &symbol_short!("FULL"), &0);
 
     // 7. Write record as provider (should succeed now!)
-    let seq = rr_client.write_record(&provider, &patient, &record_hash, &record_type, &cid, &12345);
+    let seq = rr_client.write_record(
+        &provider,
+        &patient,
+        &record_hash,
+        &record_type,
+        &cid,
+        &12345,
+    );
     assert_eq!(seq, 1);
     assert_eq!(rr_client.get_record_count(&patient), 1);
 
@@ -64,7 +71,7 @@ fn test_write_and_amend_record() {
 
     let entry_amended = rr_client.get_record(&patient, &2);
     assert_eq!(entry_amended.seq, 2);
-    assert_eq!(entry_amended.is_amendment, true);
+    assert!(entry_amended.is_amendment);
     assert_eq!(entry_amended.amends_seq, 1);
     assert_eq!(entry_amended.record_hash, amend_hash);
 }

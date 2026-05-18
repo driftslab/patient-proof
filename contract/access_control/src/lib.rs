@@ -1,6 +1,6 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, Address, Env, Symbol, Vec};
 use shared::SharedError;
+use soroban_sdk::{contract, contractimpl, Address, Env, Symbol, Vec};
 
 mod types;
 pub use types::{AccessGrant, AccessKey};
@@ -30,7 +30,7 @@ impl AccessControlContract {
         }
 
         let grant_key = AccessKey::Grant(patient.clone(), provider.clone());
-        
+
         let grant = AccessGrant {
             provider: provider.clone(),
             scope: scope.clone(),
@@ -64,11 +64,7 @@ impl AccessControlContract {
         Ok(())
     }
 
-    pub fn revoke_access(
-        env: Env,
-        patient: Address,
-        provider: Address,
-    ) -> Result<(), SharedError> {
+    pub fn revoke_access(env: Env, patient: Address, provider: Address) -> Result<(), SharedError> {
         patient.require_auth();
 
         let grant_key = AccessKey::Grant(patient.clone(), provider.clone());

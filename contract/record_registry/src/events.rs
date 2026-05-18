@@ -8,11 +8,7 @@ pub fn publish_record_created(
     record_hash: BytesN<32>,
 ) {
     env.events().publish(
-        (
-            symbol_short!("RECORD"),
-            symbol_short!("CREATED"),
-            patient,
-        ),
+        (symbol_short!("RECORD"), symbol_short!("CREATED"), patient),
         (seq, record_type, record_hash),
     );
 }
@@ -25,11 +21,7 @@ pub fn publish_record_amended(
     amendment_hash: BytesN<32>,
 ) {
     env.events().publish(
-        (
-            symbol_short!("RECORD"),
-            symbol_short!("AMENDED"),
-            patient,
-        ),
+        (symbol_short!("RECORD"), symbol_short!("AMENDED"), patient),
         (seq, original_seq, amendment_hash),
     );
 }

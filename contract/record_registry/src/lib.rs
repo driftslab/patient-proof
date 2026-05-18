@@ -1,6 +1,6 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, Address, Bytes, BytesN, Env, Symbol};
 use shared::SharedError;
+use soroban_sdk::{contract, contractimpl, Address, Bytes, BytesN, Env, Symbol};
 
 mod types;
 pub use types::{DataKey, RecordEntry};
@@ -9,7 +9,7 @@ pub use types::{DataKey, RecordEntry};
 mod test;
 
 mod events;
-use events::{publish_record_created, publish_record_amended};
+use events::{publish_record_amended, publish_record_created};
 
 // Import client for access control contract
 use access_control::AccessControlContractClient;
@@ -19,12 +19,18 @@ pub struct RecordRegistryContract;
 
 #[contractimpl]
 impl RecordRegistryContract {
-    pub fn initialize(env: Env, admin: Address, access_control: Address) -> Result<(), SharedError> {
+    pub fn initialize(
+        env: Env,
+        admin: Address,
+        access_control: Address,
+    ) -> Result<(), SharedError> {
         if env.storage().persistent().has(&DataKey::Admin) {
             return Err(SharedError::AlreadyInitialized);
         }
         env.storage().persistent().set(&DataKey::Admin, &admin);
-        env.storage().persistent().set(&DataKey::AccessControl, &access_control);
+        env.storage()
+            .persistent()
+            .set(&DataKey::AccessControl, &access_control);
         Ok(())
     }
 
@@ -35,12 +41,18 @@ impl RecordRegistryContract {
             return Err(SharedError::AlreadyInitialized);
         }
         env.storage().persistent().set(&key, &true);
-        env.storage().persistent().set(&DataKey::RecordCount(patient.clone()), &0u64);
-        
+        env.storage()
+            .persistent()
+            .set(&DataKey::RecordCount(patient.clone()), &0u64);
+
         // Publish event
         env.events().publish(
-            (soroban_sdk::symbol_short!("PATIENT"), soroban_sdk::symbol_short!("REG"), patient),
-            ()
+            (
+                soroban_sdk::symbol_short!("PATIENT"),
+                soroban_sdk::symbol_short!("REG"),
+                patient,
+            ),
+            (),
         );
 
         Ok(())
@@ -70,7 +82,7 @@ impl RecordRegistryContract {
                 .persistent()
                 .get(&DataKey::AccessControl)
                 .ok_or(SharedError::NotInitialized)?;
-            
+
             let ac_client = AccessControlContractClient::new(&env, &access_control_addr);
             // Will fail if no valid/active grant exists
             ac_client.check_access(&patient, &author);
@@ -126,7 +138,7 @@ impl RecordRegistryContract {
                 .persistent()
                 .get(&DataKey::AccessControl)
                 .ok_or(SharedError::NotInitialized)?;
-            
+
             let ac_client = AccessControlContractClient::new(&env, &access_control_addr);
             ac_client.check_access(&patient, &author);
         }

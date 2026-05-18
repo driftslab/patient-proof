@@ -1,8 +1,8 @@
-#![cfg(test)]
 use super::*;
-use soroban_sdk::{testutils::Address as _, symbol_short, Address, Env};
+use soroban_sdk::{symbol_short, testutils::Address as _, Address, Env};
 
 #[test]
+#[allow(deprecated)]
 fn test_access_grant_and_revoke() {
     let env = Env::default();
     env.mock_all_auths();
@@ -21,7 +21,7 @@ fn test_access_grant_and_revoke() {
     let grant = client.check_access(&patient, &provider);
     assert_eq!(grant.provider, provider);
     assert_eq!(grant.scope, scope);
-    assert_eq!(grant.active, true);
+    assert!(grant.active);
 
     // List grants
     let grants = client.list_grants(&patient);

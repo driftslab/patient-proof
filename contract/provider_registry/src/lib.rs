@@ -1,6 +1,6 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, Address, Bytes, BytesN, Env};
 use shared::SharedError;
+use soroban_sdk::{contract, contractimpl, Address, Bytes, BytesN, Env};
 
 mod types;
 pub use types::{ProviderEntry, ProviderKey};
@@ -43,25 +43,21 @@ impl ProviderRegistryContract {
         };
 
         env.storage().persistent().set(&key, &entry);
-        
+
         // Publish event
         env.events().publish(
             (
                 soroban_sdk::symbol_short!("PROVIDER"),
                 soroban_sdk::symbol_short!("REG"),
-                provider
+                provider,
             ),
-            ()
+            (),
         );
 
         Ok(())
     }
 
-    pub fn verify_provider(
-        env: Env,
-        admin: Address,
-        provider: Address,
-    ) -> Result<(), SharedError> {
+    pub fn verify_provider(env: Env, admin: Address, provider: Address) -> Result<(), SharedError> {
         admin.require_auth();
 
         let admin_stored: Address = env
