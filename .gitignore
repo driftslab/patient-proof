@@ -1,0 +1,54 @@
+# Root Monorepo Ignores
+
+# Dependency Stores
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+.pnpm-debug.log*
+
+# Next.js Build Outputs
+.next/
+frontend/.next/
+out/
+frontend/out/
+
+# TypeScript/Node Build Outputs
+dist/
+backend/dist/
+*.tsbuildinfo
+
+# Rust/Soroban Target binaries and Cargo locks
+target/
+contract/target/
+Cargo.lock
+*.wasm
+contract/**/*.wasm
+
+# Database Files and Cache
+*.db
+*.sqlite
+*.sqlite-journal
+backend/migrations/
+.drizzle/
+
+# Environment Variables and Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env
+backend/.env
+
+# Local IDE Configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Operating System Files
+.DS_Store
+Thumbs.db

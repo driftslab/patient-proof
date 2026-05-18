@@ -1,0 +1,12 @@
+{
+  "name": "vaultmedic-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "pnpm --filter vaultmedic-frontend dev",
+    "dev:backend": "pnpm --filter vaultmedic-backend dev",
+    "dev": "pnpm --filter vaultmedic-backend dev & pnpm --filter vaultmedic-frontend dev",
+    "build:contracts": "pnpm --filter vaultmedic-contracts build",
+    "test:contracts": "pnpm --filter vaultmedic-contracts test"
+  }
+}
