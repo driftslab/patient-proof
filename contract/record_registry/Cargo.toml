@@ -1,0 +1,12 @@
+[package]
+name = "record_registry"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+soroban-sdk = { workspace = true }
+shared = { path = "../shared" }
+access_control = { path = "../access_control" }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
