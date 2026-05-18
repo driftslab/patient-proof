@@ -11,12 +11,12 @@ export function getHorizonClient(): Horizon.Server {
   return horizonClient;
 }
 
-export async function loadAccount(address: string): Promise<Horizon.Server.AccountResponse> {
+export async function loadAccount(address: string): Promise<any> {
   const server = getHorizonClient();
   return await server.loadAccount(address);
 }
 
-export async function getTransactions(address: string, limit: number = 10): Promise<Horizon.Server.TransactionResponse[]> {
+export async function getTransactions(address: string, limit: number = 10): Promise<any[]> {
   const server = getHorizonClient();
   const response = await server
     .transactions()

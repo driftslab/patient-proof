@@ -34,7 +34,7 @@ export async function getEvents(
   startLedger: number,
   limit: number = 50,
   cursor?: string,
-): Promise<{ events: StellarRpc.Api.RawEventResponse[]; cursor?: string }> {
+): Promise<{ events: any[]; cursor?: string }> {
   const rpc = getRpcClient();
 
   const response = await rpc.getEvents({
@@ -45,11 +45,9 @@ export async function getEvents(
         contractIds: [contractId],
       },
     ],
-    pagination: {
-      cursor,
-      limit,
-    },
-  });
+    cursor,
+    limit,
+  } as any);
 
   return {
     events: response.events,

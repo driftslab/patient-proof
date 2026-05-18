@@ -9,7 +9,7 @@ export function symbolToScVal(sym: string): xdr.ScVal {
 }
 
 export function bytesToScVal(bytes: Uint8Array): xdr.ScVal {
-  return xdr.ScVal.scvBytes(bytes);
+  return xdr.ScVal.scvBytes(Buffer.from(bytes));
 }
 
 export function u64ToScVal(n: bigint | number): xdr.ScVal {

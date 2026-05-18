@@ -1,3 +1,9 @@
+declare const process: {
+  env: {
+    DATABASE_URL?: string;
+  };
+};
+
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
